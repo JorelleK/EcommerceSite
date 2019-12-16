@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            {% include "_messages.html" %}
+             {% if updatebrand %}
+            <h1 class="text-center mt-5">Update a brand</h1>
+            <form action="" method="post">
+                {{ form.csrf_token }}
+                <div>
+                    <input type="text", name="brand", class="form-control" value="{{updatebrand.name}}">
+
+<!--                    {{ form.name.label(class="form-control-label green-text") }}-->
+<!--                    {{ form.name(class="form-control form-control-md") }}-->
+                     {% if form.name.errors %}
+                    <div class="alert alert-warning" role="alert">
+                        {% for error in form.name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+                {% endif %}
+                </div>
+
+                <div>
+                    <input type="submit" value="Update brand" class="btn btn-info mt-2">
+<!--                    {{ form.submit(class="form-control form-control-lg") }}-->
+                </div>
+
+            </form>
+
+            <a href="{{url_for('admin.brands')}}" class="btn btn-warning"
+               style="margin-top: -65px; margin-left: 140px; ">Cancel</a>
+
+            {% else %}
+            <h1 class="text-center mt-5">Update a category</h1>
+            <form action="" method="post">
+                {{ form.csrf_token }}
+                <div>
+                    <input type="text", name="category", class="form-control" value="{{updatecat.name}}">
+<!--                    {{ form.name.label(class="form-control-label green-text") }}-->
+<!--                    {{ form.name(class="form-control form-control-md") }}-->
+
+                    {% if form.name.errors %}
+                    <div class="alert alert-warning" role="alert">
+                        {% for error in form.name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+                {% endif %}
+                </div>
+
+                <div>
+                     <input type="submit" value="Update category" class="btn btn-info mt-2">
+<!--                    {{ form.submit(class="form-control form-control-lg") }}-->
+                </div>
+            </form>
+             <a href="{{url_for('admin.category')}}" class="btn btn-warning"
+               style="margin-top: -65px; margin-left: 160px; ">Cancel</a>
+            {% endif %}
+
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+{% endblock content %}
