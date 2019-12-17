@@ -1,1 +1,2 @@
 web: gunicorn "run:create_app()"
+release: python manage.py db upgrade
