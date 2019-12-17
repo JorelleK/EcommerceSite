@@ -5,7 +5,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_talisman import Talisman
 from flask_uploads import IMAGES, UploadSet, configure_uploads, patch_request_class
-from flask_mail import Mail
+from flask_mail import Mail, Message
 
 import os
 
@@ -68,6 +68,7 @@ def create_app():
     app.config["MAIL_USERNAME"] = 'cmsctest01@gmail.com'
     app.config["MAIL_PASSWORD"] = 'Iwbahmi2@19'
 
+    Mail(app)
     talisman.init_app(app)
     db.init_app(app)
     bcrypt.init_app(app)
@@ -90,4 +91,6 @@ def create_app():
     talisman.content_security_policy_report_uri = "/csp_error_handling"
 
     return app
+
+
 

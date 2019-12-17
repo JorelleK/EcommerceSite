@@ -5,6 +5,9 @@ from shop.admin.forms import RegistrationForm, LoginForm
 from shop.products.forms import AddProduct
 from shop.admin.models import User
 from shop.products.models import Addproduct, Brand, Category
+from flask_mail import Mail, Message
+
+mail = Mail()
 
 
 import qrcode
@@ -113,4 +116,12 @@ def category():
     return render_template("admin/brand.html", title="Category Page", categories=categories)
 
 
+@admin.route('/send-mail')
+def send_mail():
+    msg = Message("Send Mail!",
+                  sender="cmsctest01@gmail.com",
+                  recipients=["jmanu@gm.com"])
+    msg.body = "Yo!\nHave you heard the good word of Python???"
+    mail.send(msg)
+    return 'Mail sent!'
 
