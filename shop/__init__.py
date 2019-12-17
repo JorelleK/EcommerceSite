@@ -5,6 +5,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_talisman import Talisman
 from flask_uploads import IMAGES, UploadSet, configure_uploads, patch_request_class
+from flask_mail import Mail
 
 import os
 
@@ -36,12 +37,14 @@ dictConfig(
     }
 )
 
+
 talisman = Talisman(content_security_policy=csp)
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 login_manager.login_view = 'customers.loginpage'
 
+mail = Mail()
 basedir = os.path.abspath(os.path.dirname(__file__))
 photos = UploadSet('photos', IMAGES)
 
@@ -49,14 +52,21 @@ photos = UploadSet('photos', IMAGES)
 def create_app():
 
     app = Flask(__name__)
-    #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///myshop.db'
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///myshop.db'
+    #app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
     app.config['SECRET_KEY'] = os.urandom(24)
     app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(basedir, 'static/images')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     configure_uploads(app, photos)
     patch_request_class(app)
+
+    app.config["MAIL_SERVER"] = 'smtp.googlemail.com'
+    app.config["MAIL_PORT"] = 587
+    app.config["MAIL_USE_TLS"] = True
+    app.config["MAIL_USE_SSL"] = False
+    app.config["MAIL_USERNAME"] = 'cmsctest01@gmail.com'
+    app.config["MAIL_PASSWORD"] = 'Iwbahmi2@19'
 
     talisman.init_app(app)
     db.init_app(app)
