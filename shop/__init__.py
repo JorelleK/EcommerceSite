@@ -49,7 +49,8 @@ photos = UploadSet('photos', IMAGES)
 def create_app():
 
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///myshop.db'
+    #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///myshop.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
     app.config['SECRET_KEY'] = os.urandom(24)
     app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(basedir, 'static/images')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
