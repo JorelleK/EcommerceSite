@@ -27,7 +27,7 @@ Mako==1.1.0
 MarkupSafe==1.1.1
 middleware==1.2.3
 passlib==1.7.1
-Pillow==6.2.1
+Pillow==9.0.1
 post==2019.4.13
 psycopg2==2.8.4
 public==2019.4.13
